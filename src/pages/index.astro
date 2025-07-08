@@ -1,11 +1,210 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Frontmatter
+import skills from '../data/skill';
+import '../styles/global.css';
+import projects from '../data/myProjects.js';
+import certGroups from '../data/myCerts.js';
 ---
+<html>
+  <head>
+    <title>Rujisaran Malan | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style>
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Inter', sans-serif; }
+      .light { background: linear-gradient(to bottom, #ffffff, #f0f4f8); color: #111827; }
+      .light .text-white { color: #111827 !important; }
+      .nav-link { position: relative; color: #60a5fa; transition: color 0.3s; }
+      .nav-link:hover { color: white; }
+      .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #3b82f6; transition: width 0.3s ease-in-out; }
+      .nav-link:hover::after { width: 100%; }
+      @keyframes glow {
+        0%, 100% { box-shadow: 0 0 8px rgba(59,130,246,0.4), 0 0 16px rgba(59,130,246,0.3); }
+        50% { box-shadow: 0 0 12px rgba(59,130,246,0.7), 0 0 24px rgba(59,130,246,0.5); }
+      }
+      .terminal-style {
+        font-family: 'Fira Code', monospace;
+        background: rgba(0,0,0,0.6);
+        border-radius: 0.75rem;
+        padding: 1rem 1.5rem;
+        color: #0f0;
+        box-shadow: inset 0 0 8px #0f0;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        margin-bottom: 2rem;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Typed.js intro
+        if (window.Typed) {
+          new Typed('#typed-output', {
+            strings: ['Front-end Developer', 'Problem Solver', 'Web Aesthetic Enthusiast'],
+            typeSpeed: 60,
+            backSpeed: 30,
+            loop: true
+          });
+        }
 
-<Layout>
-	<Welcome />
-</Layout>
+        const toggle = document.getElementById('theme-toggle');
+        if (toggle) {
+          toggle.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
+          toggle.addEventListener('click', () => {
+            document.body.classList.toggle('light');
+            toggle.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
+          });
+        }
+
+        const topBtn = document.getElementById("backToTop");
+        window.addEventListener("scroll", () => {
+          topBtn.style.opacity = window.scrollY > 300 ? "1" : "0";
+        });
+        topBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        const video = document.querySelector('video');
+        window.addEventListener('scroll', () => {
+          if (video) video.style.transform = `translateY(${window.scrollY * 0.2}px)`;
+        });
+      });
+    </script>
+  </head>
+
+  <body class="relative min-h-screen font-sans overflow-x-hidden bg-gradient-to-b from-[#0f111a] via-[#151822] to-[#1c1f2b] text-white">
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover opacity-20 z-[-1]">
+      <source src="/background/Organic_Lines_4K_Motion_Background_Loop.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between p-6 bg-white/10 backdrop-blur-md shadow-lg rounded-2xl max-w-6xl mx-auto mt-8">
+      <div class="font-bold text-2xl tracking-wide">Rujisaran Malan</div>
+      <div class="space-x-8 text-sm font-medium">
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#certificates" class="nav-link">Certificates</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <button id="theme-toggle" class="ml-4 text-xl hover:scale-110 transition-transform">🌙</button>
+      </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4">
+
+      <!-- 🧠 Terminal Intro -->
+      <div class="terminal-style my-12">
+        > Hello! I'm Rujisaran (BM). <br>
+        > Passionate about clean design, efficient code, and delightful UX. <br>
+        > Let me walk you through my digital playground.
+      </div>
+
+      <!-- Hero Section -->
+      <section class="flex flex-col md:flex-row items-center my-16 gap-10">
+        <div class="flex-1 text-center md:text-left">
+          <h1 class="text-5xl font-extrabold mb-4 leading-tight">Hi, I'm <span class="text-blue-400">Rujisaran (BM)</span></h1>
+          <p class="text-lg text-white mb-6 max-w-xl">
+            <span id="typed-output"></span><br>
+            Building sleek web apps and beautiful portfolios.
+          </p>
+          <a href="#projects" class="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl shadow hover:bg-blue-700 transition-all">See My Work</a>
+        </div>
+        <div class="flex justify-center md:justify-end">
+          <img src="/pfp/325309.jpg" alt="Rujisaran Profile" class="w-72 h-72 object-cover rounded-3xl border-4 border-blue-100 shadow-2xl" />
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="my-16">
+        <h2 class="text-4xl font-bold mb-10 text-center text-white">My Skills</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {skills.map(skill => (
+            <div class={`relative p-5 rounded-xl backdrop-blur-md hover:scale-105 transition-transform shadow-lg bg-gradient-to-br from-slate-900/80 to-slate-800/70 border border-blue-600/20 group`}>
+              <div class="absolute inset-0 rounded-xl z-0 transition-all duration-700 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 animate-pulse blur-sm"></div>
+              <div class="relative z-10 flex flex-col items-center justify-center">
+                <img src={skill.icon} alt={skill.name} class="w-10 h-10 mb-3" />
+                <span class="text-white font-medium text-base text-center leading-snug">{skill.name}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+     <!-- Projects -->
+      <section id="projects" class="my-16">
+        <h2 class="text-4xl mb-10 text-center text-white font-bold">Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {projects.map(proj => (
+            <div class="bg-[#1d2233]/80 backdrop-blur-lg rounded-2xl shadow-xl p-6">
+              <img src={proj.image} alt={proj.name} class="rounded-xl shadow mb-4 w-full object-cover h-48" />
+              <h3 class="text-xl font-bold mb-2 text-white">{proj.name}</h3>
+              <p class="text-white text-opacity-90 mb-4 text-sm">{proj.description}</p>
+              <a href={proj.github} class="text-blue-400 hover:underline text-sm" target="_blank">View on GitHub</a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Certificates -->
+      <section id="certificates" class="my-16">
+        <h2 class="text-4xl mb-10 text-center text-white font-bold">Certificates</h2>
+        <div class="space-y-10">
+          {certGroups.map(group => (
+            <div class="bg-[#1d2233]/80 p-6 rounded-2xl backdrop-blur-lg shadow-xl">
+              <h3 class="text-2xl font-bold mb-6 text-white">{group.provider}</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {group.items.map(cert => (
+                  <div class="rounded-xl overflow-hidden shadow bg-white/10 flex flex-col justify-between h-full">
+                    {cert.image.endsWith('.pdf') ? (
+                      <a href={cert.image} target="_blank" rel="noopener noreferrer" class="block p-6 text-center text-blue-400 font-semibold bg-gray-800 hover:bg-gray-700 transition rounded-t-xl">
+                        View PDF
+                      </a>
+                    ) : (
+                      <img src={cert.image} alt={cert.name} class="rounded-t-xl shadow w-full object-cover h-40" />
+                    )}
+                    <div class="p-4 text-sm text-center font-medium text-white">
+                      {cert.name}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="text-center my-16">
+        <h2 class="text-3xl mb-4 text-white font-bold">Contact Me</h2>
+        <p class="text-white mb-4 text-sm">
+          Drop me an email at <a href="mailto:rujisaran21@gmail.com" class="text-blue-400 hover:underline">rujisaran21@gmail.com</a> or visit me on LinkedIn.
+        </p>
+        <a href="https://www.linkedin.com/in/rujisaranmalan21/" class="inline-flex items-center text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
+          <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4.98 3.5C4.98 5.43 3.42 7 1.5 7S-1.98 5.43-1.98 3.5C-1.98 1.57-.42 0 1.5 0S4.98 1.57 4.98 3.5zM.06 8.64H3.94v12.86H.06V8.64zm7.56 0h3.31v1.76h.05c.46-.87 1.57-1.79 3.23-1.79 3.45 0 4.09 2.27 4.09 5.22v6.09h-3.85v-5.4c0-1.29-.03-2.96-1.8-2.96-1.8 0-2.08 1.41-2.08 2.87v5.49H7.62V8.64z"></path>
+          </svg>
+          LinkedIn
+        </a>
+      </section>
+    </main>
+
+    </main>
+
+    <!-- Back to Top -->
+    <button id="backToTop"
+  title="Back to top"
+  class="fixed bottom-6 right-6 z-50 bg-blue-600 text-white text-2xl p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all opacity-0 leading-none font-bold animate-[glow_2s_ease-in-out_infinite]">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+    stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+  </svg>
+</button>
+
+    <footer class="py-6 text-center text-gray-500 text-xs">
+      &copy; 2025 Rujisaran Malan. All rights reserved.
+    </footer>
+  </body>
+</html>
