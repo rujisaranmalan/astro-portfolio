@@ -8,7 +8,7 @@ import certGroups from '../data/myCerts.js';
 <html>
   <head>
     <title>Rujisaran Malan | Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <style>
@@ -72,8 +72,9 @@ import certGroups from '../data/myCerts.js';
         });
       });
     </script>
+    
   </head>
-
+  
   <body class="relative min-h-screen font-sans overflow-x-hidden bg-gradient-to-b from-[#0f111a] via-[#151822] to-[#1c1f2b] text-white">
 
     <!-- Background Video -->
@@ -98,8 +99,9 @@ import certGroups from '../data/myCerts.js';
       <!-- 🧠 Terminal Intro -->
       <div class="terminal-style my-12">
         > Hello! I'm Rujisaran (BM). <br>
-        > Passionate about clean design, efficient code, and delightful UX. <br>
+        > Passionate about clean code design, AI and Backend Developer, and delightful UX/UI. <br>
         > Let me walk you through my digital playground.
+        > Hint: Try entering the famous ↑ ↑ ↓ ↓ ← → ← → B A sequence on your keyboard 😉
       </div>
 
       <!-- Hero Section -->
@@ -223,6 +225,38 @@ import certGroups from '../data/myCerts.js';
   </div>
 </section>
 
+      <!-- 📥 Resume Download Section -->
+<section class="my-16 px-6">
+  <h2 class="text-4xl mb-10 text-center text-white font-bold">📥 Resume</h2>
+  <p class="text-center text-black text-opacity-70 mb-6">
+    Click below to download my latest resume as PDF
+  </p>
+  <div class="text-center">
+    <a
+      href="/Rujisaran_Malan_Completed_CV.pdf"
+      download
+      class="inline-block bg-blue-600 text-black px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition"
+    >
+      Download Resume
+    </a>
+  </div>
+</section>
+
+      <script>
+  const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let input = [];
+
+  window.addEventListener('keydown', (e) => {
+    input.push(e.key);
+    if (input.length > konamiCode.length) input.shift();
+
+    if (input.join(',') === konamiCode.join(',')) {
+      window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+    }
+  });
+</script>
+
+
 
       <!-- Contact -->
       <section id="contact" class="text-center my-16">
@@ -237,6 +271,25 @@ import certGroups from '../data/myCerts.js';
           LinkedIn
         </a>
       </section>
+      
+      <!-- Visitor Counter -->
+
+      <section class="my-16 text-center bg-white/10 p-6 rounded-xl shadow-xl max-w-xl mx-auto backdrop-blur-md">
+  <h2 class="text-2xl font-bold text-white mb-4">👀 You're visitor number:</h2>
+
+  <img
+    src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Frujisaran-portfolio.vercel.app&count_bg=%233B82F6&title_bg=%231E293B&icon=astro.svg&icon_color=%23E7E7E7&title=Visitors&edge_flat=false"
+    alt="Visitor counter"
+    class="mx-auto"
+  />
+
+  <p class="text-gray-400 text-sm mt-2">
+    (Powered by 
+    <a href="https://hits.seeyoufarm.com/" target="_blank" class="text-blue-400 hover:underline">SeeYouFarm</a>)
+  </p>
+</section>
+
+
     </main>
 
     </main>
@@ -254,5 +307,11 @@ import certGroups from '../data/myCerts.js';
     <footer class="py-6 text-center text-gray-500 text-xs">
       &copy; 2025 Rujisaran Malan. All rights reserved.
     </footer>
+
+
+    <script type="module" src="/scripts/MouseTrail.js" is:inline></script>
+
+
+
   </body>
 </html>
