@@ -178,31 +178,51 @@ import certGroups from '../data/myCerts.js';
 
       <!-- Certificates -->
       <section id="certificates" class="my-16">
-        <h2 class="text-4xl mb-10 text-center text-white font-bold">Certificates</h2>
-        <div class="space-y-10">
-          {certGroups.map(group => (
-            <div class="bg-[#1d2233]/80 p-6 rounded-2xl backdrop-blur-lg shadow-xl">
-              <h3 class="text-2xl font-bold mb-6 text-white">{group.provider}</h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {group.items.map(cert => (
-                  <div class="rounded-xl overflow-hidden shadow bg-white/10 flex flex-col justify-between h-full">
-                    {cert.image.endsWith('.pdf') ? (
-                      <a href={cert.image} target="_blank" rel="noopener noreferrer" class="block p-6 text-center text-blue-400 font-semibold bg-gray-800 hover:bg-gray-700 transition rounded-t-xl">
-                        View PDF
-                      </a>
-                    ) : (
-                      <img src={cert.image} alt={cert.name} class="rounded-t-xl shadow w-full object-cover h-40" />
-                    )}
-                    <div class="p-4 text-sm text-center font-medium text-white">
-                      {cert.name}
-                    </div>
-                  </div>
-                ))}
+  <h2 class="text-4xl mb-10 text-center text-white font-bold">Certificates</h2>
+  <div class="space-y-10">
+    {certGroups.map(group => {
+      const providerColor = group.provider === 'Coursera'
+        ? 'bg-blue-900/80'
+        : group.provider === 'Udemy'
+        ? 'bg-purple-800/80'
+        : group.provider === 'AWS'
+        ? 'bg-orange-700/80'
+        : 'bg-[#1d2233]/80'; // fallback
+
+      return (
+        <div class={`${providerColor} p-6 rounded-2xl backdrop-blur-lg shadow-xl`}>
+          <h3 class="text-2xl font-bold mb-6 text-white">{group.provider}</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {group.items.map(cert => (
+              <div class="rounded-xl overflow-hidden shadow bg-white/10 flex flex-col justify-between h-full">
+                {cert.image.endsWith('.pdf') ? (
+                  <a
+                    href={cert.image}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block p-6 text-center text-white font-semibold bg-black/60 hover:bg-black/80 transition rounded-t-xl"
+                  >
+                    View PDF
+                  </a>
+                ) : (
+                  <img
+                    src={cert.image}
+                    alt={cert.name}
+                    class="rounded-t-xl shadow w-full object-cover h-40"
+                  />
+                )}
+                <div class="p-4 text-sm text-center font-medium text-white">
+                  {cert.name}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </section>
+      );
+    })}
+  </div>
+</section>
+
 
       <!-- Contact -->
       <section id="contact" class="text-center my-16">
