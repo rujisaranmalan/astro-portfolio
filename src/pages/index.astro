@@ -274,17 +274,11 @@ import certGroups from '../data/myCerts.js';
       
       <!-- Visitor Counter -->
 
-      <section class="my-12 text-center bg-[#ffffff] text-black py-8 rounded-xl">
-  <h2 class="text-2xl font-bold mb-2">👀 You're visitor number:</h2>
-  <img 
-    src="https://counterapi.dev/api/rujisaran-portfolio" 
-    alt="Visitor Counter"
-    class="mx-auto my-2"
-  />
-  <p class="text-sm text-gray-400">
-    (Powered by <a href="https://counterapi.dev" target="_blank" class="underline text-blue-400">CounterAPI</a>)
-  </p>
+      <section class="text-center my-10">
+  <h2 class="text-2xl font-bold">👀 You're visitor number:</h2>
+  <p id="visitor-count" class="text-3xl font-mono mt-2 animate-pulse">Loading...</p>
 </section>
+
 
 
 
@@ -310,6 +304,38 @@ import certGroups from '../data/myCerts.js';
 
     <script type="module" src="/scripts/MouseTrail.js" is:inline></script>
 
+    <!-- Firebase Setup -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, get, set, increment, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyD90PS9i0UlRU3hqowSZB7gTLro6cIhe5c",
+  authDomain: "count-visitor-port.firebaseapp.com",
+  databaseURL: "https://count-visitor-port-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "count-visitor-port",
+  storageBucket: "count-visitor-port.firebasestorage.app",
+  messagingSenderId: "747846258039",
+  appId: "1:747846258039:web:9367de1989f9a20cec2572"
+};
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const counterRef = ref(db, "visitorCount");
+
+  get(counterRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      set(counterRef, increment(1));
+    } else {
+      set(counterRef, 1);
+    }
+  });
+
+  onValue(counterRef, (snapshot) => {
+    document.getElementById("visitor-count").innerText = snapshot.val();
+  });
+</script>
 
 
   </body>
